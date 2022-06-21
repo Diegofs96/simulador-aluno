@@ -4,6 +4,7 @@ import (
 	"fmt"
 	route2 "github.com/Diegofs96/simulador-aluno/application/route"
 	"github.com/joho/godotenv"
+	kafka2 "github.com/Diegofs96/simulador-aluno/application/kafka"
 )
 
 func init() {
@@ -20,14 +21,6 @@ func main() {
 
 	for msg := range msgChan {
 		fmt.Println(string(msg.Value))
+		go kafka2.Produce(msg)
 	}
-
-	// route := route2.Route{
-	// 	ID:       "1",
-	// 	ClientID: "1",
-	// }
-
-	// route.LoadPositions()
-	// stringjson, _ := route.ExportJsonPositions()
-	// fmt.Println(stringjson[0])
 }
